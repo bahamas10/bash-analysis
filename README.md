@@ -38,11 +38,11 @@ or specify a field separator as the second argument
     ...
 
 - `$1` - The field number to extract, defaults to `1`
-- `$2` - The field separator to be passed to awk, defaults to ` `
+- `$2` - The field separator to be passed to awk, defaults to ` ` (whitespace)
 
 ### `freq`
 
-Foor mans frequency count
+Poor mans frequency count
 
     $ cat data
     a
@@ -55,7 +55,7 @@ Foor mans frequency count
        1 b
        3 c
 
-Using the data from above we can count the frequency of shells found in
+Using the data from above we can count the shells found in
 `/etc/passwd`
 
     $ cat /etc/passwd | field 7 : | freq
@@ -112,7 +112,7 @@ http://www.brendangregg.com/Shell/total
     7
 
 - `$1` - The field number to extract, defaults to `1`
-- `$2` - The field separator to be passed to awk, defaults to ` `
+- `$2` - The field separator to be passed to awk, defaults to ` ` (whitespace)
 
 Installation
 ------------
