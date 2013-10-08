@@ -73,9 +73,10 @@ limitcolumns() {
 	cols=${cols:-80}
 	awk "
 	{
-		if (length(\$0) > $cols)
-			\$0 = substr(\$0, 0, $cols - 1) \"$red>$reset\";
-		print \$0
+		s = \$0;
+		if (length(s) > $cols)
+			s = substr(\$0, 0, $cols - 1) \"$red>$reset\";
+		print s
 	}"
 }
 
