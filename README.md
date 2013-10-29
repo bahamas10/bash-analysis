@@ -119,8 +119,7 @@ Figure out the min number of given input
 
 ### `summarize`
 
-# Print a summary for input data
-# show average, sum, min and max
+Print a summary for input data: show average, sum, min and max
 
     $ cat data
     1
