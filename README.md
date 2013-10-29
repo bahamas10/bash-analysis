@@ -6,6 +6,17 @@ Various tools for text extraction, representation, and analysis
 Functions
 ---------
 
+### `avg`
+
+Calculate the average of input numbers
+
+    $ cat data
+    100
+    100
+    0
+    $ avg < data
+    66.666
+
 ### `commas`
 
 Add commas to a given inputs numbers
@@ -84,20 +95,46 @@ http://stackoverflow.com/questions/15867557/finding-gaps-sequential-numbers
     4-5
     7-9
 
-### `limitcolumns`
+### `max`
 
-Limit the number of columns printed to terminal size or 80 if size cannot be
-determined
+Figure out the max number of given input
 
-    $ cat file.txt
-    some really long line
-    some short line
-    $ cat file.txt | limitcolumns 20
-    some really long li>
-    some short line
+    $ cat data
+    1
+    2
+    3
+    $ max < data
+    3
 
-- `$1` - the number of columns to limit the output to, defaults to terminal
-width, falling back on `80`
+### `min`
+
+Figure out the min number of given input
+
+    $ cat data
+    1
+    2
+    3
+    $ min < data
+    1
+
+### `summarize`
+
+# Print a summary for input data
+# show average, sum, min and max
+
+    $ cat data
+    1
+    3
+    5
+    7
+    8
+    9
+    $ summarize < data
+    lines    6
+    min  1
+    max  9
+    sum  33
+    avg  5.5
 
 ### `total`
 

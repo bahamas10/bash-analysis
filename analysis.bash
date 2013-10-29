@@ -7,6 +7,19 @@
 # License: MIT
 # Date: 3/2/2013
 
+# Calculate the average of input numbers
+#
+# $ cat data
+# 100
+# 100
+# 0
+# $ avg < data
+# 66.666
+avg() {
+	local f=${1:-1}
+	awk -F "${2:- }" "length(\$$f) { i+=1; sum+=\$$f; } END { print sum/i }"
+}
+
 # Add commas to a given inputs numbers
 #
 # $ echo '100000 / 100000000' | commas
@@ -55,28 +68,63 @@ gaps() {
 	awk '$1 != (p+1) { print p+1 "-" $1-1 } { p = $1 }'
 }
 
-# Limit the number of columns printed to terminal size
-# or 80 if size cannot be determined
+# Figure out the max number of given input
 #
-# $ cat file.txt
-# some really long line
-# some short line
-# $ cat file.txt | limitcolumns 20
-# some really long li>
-# some short line
-limitcolumns() {
-	local cols=$1
-	local red=$(tput setaf 1)
-	local reset=$(tput sgr0)
-	cols=${cols:-$COLUMNS}
-	cols=${cols:-$(tput cols)}
-	cols=${cols:-80}
-	awk "
-	{
-		s = \$0;
-		if (length(s) > $cols)
-			s = substr(\$0, 0, $cols - 1) \"$red>$reset\";
-		print s
+# $ cat data
+# 1
+# 2
+# 3
+# $ max < data
+# 3
+max() {
+	local f=${1:-1}
+	awk -F "${2:- }" "
+	length(\$$f) {
+		if (max == \"\" || \$$f > max)
+			max = \$$f
+	}
+	END { print max; }"
+}
+
+# Figure out the min number of given input
+#
+# $ cat data
+# 1
+# 2
+# 3
+# $ min < data
+# 1
+min() {
+	local f=${1:-1}
+	awk -F "${2:- }" "
+	length(\$$f) {
+		if (min == \"\" || \$$f < min)
+			min = \$$f
+	}
+	END { print min; }"
+}
+
+# Print a summary for input data
+# show average, sum, min and max
+summarize() {
+	local f=${1:-1}
+	awk -F "${2:- }" "
+	length(\$$f) {
+		if (max == \"\")
+			max = min = \$$f;
+		i += 1;
+		sum += \$$f;
+		if (\$$f > max)
+			max = \$$f
+		if (\$$f < min)
+			min = \$$f
+	}
+	END {
+		print \"lines\\t\", i;
+		print \"min\\t\", min;
+		print \"max\\t\", max;
+		print \"sum\\t\", sum;
+		print \"avg\\t\", sum/i;
 	}"
 }
 
