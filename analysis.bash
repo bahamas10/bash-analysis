@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # analysis
 #
 # Various tools for text extraction, representation, and analysis
